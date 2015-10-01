@@ -1,6 +1,8 @@
 # Practical React
 Open Source North demo code
 
+[Slides](http://slides.com/mattruby/practical-react#/)
+
 ## There are 7 examples here from static html to async  data loading.
 
 1. Html and css only
