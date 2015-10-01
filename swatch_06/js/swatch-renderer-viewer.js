@@ -2,6 +2,25 @@
 (function () {
 	"use strict";
 
+	Swatch.ViewerLookup = React.createClass({
+		displayName: 'SmartViewer.Swatch',
+		componentWillMount: function () {
+
+			var store = new Swatch.SwatchStore();
+			var listenableActions = store.listenableActions;
+
+			this.signalBinding = listenableActions.swatchDataChanged.add(function () {
+				this.setState(store.getReactProps());
+			}, this);
+			store.init(swatchData1);
+		},
+		componentWillUnmount: function () {
+			this.signalBinding.detach();
+		},
+		render: function () {
+			return React.createElement(Swatch.ViewerFullRenderer, this.state);
+		}
+	});
 
 	Swatch.ViewerFullRenderer = React.createClass({
 		displayName: 'viewer.Swatch',
@@ -95,8 +114,7 @@
 				})
 			);
 		},
-		swatchClickHandler: function (event) {
-			event.preventDefault();
+		swatchClickHandler: function () {
 			this.props.setSelectedSwatchSignal.dispatch(this.props.materialId)
 		}
 	});

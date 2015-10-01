@@ -2,13 +2,14 @@
 (function () {
 	"use strict";
 
+
 	Swatch.ViewerFullRenderer = React.createClass({
 		displayName: 'viewer.Swatch',
 		propTypes: {
 			title: React.PropTypes.string.isRequired,
 			selectedSwatch: React.PropTypes.object.isRequired,
 			swatches: React.PropTypes.array.isRequired,
-			eventBinding: React.PropTypes.object.isRequired
+			setSelectedSwatchSignal: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -35,7 +36,7 @@
 					{
 						key: 'swatch-group',
 						swatches: this.props.swatches,
-						eventBinding: this.props.eventBinding
+						setSelectedSwatchSignal: this.props.setSelectedSwatchSignal
 					})
 			);
 		}
@@ -45,7 +46,7 @@
 		displayName: 'swatchGroup.Swatch',
 		propTypes: {
 			swatches: React.PropTypes.array.isRequired,
-			eventBinding: React.PropTypes.object.isRequired
+			setSelectedSwatchSignal: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -56,7 +57,7 @@
 					materialId: swatch.materialId,
 					name: swatch.name,
 					image: swatch.image,
-					eventBinding: this.props.eventBinding
+					setSelectedSwatchSignal: this.props.setSelectedSwatchSignal
 				});
 			}, this);
 
@@ -75,7 +76,7 @@
 			materialId: React.PropTypes.number.isRequired,
 			name: React.PropTypes.string.isRequired,
 			image: React.PropTypes.string.isRequired,
-			eventBinding: React.PropTypes.object.isRequired
+			setSelectedSwatchSignal: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -96,7 +97,7 @@
 		},
 		swatchClickHandler: function (event) {
 			event.preventDefault();
-			$(this.props.eventBinding).trigger('swatchSelected.swatch', this.props.materialId);
+			this.props.setSelectedSwatchSignal.dispatch(this.props.materialId)
 		}
 	});
 

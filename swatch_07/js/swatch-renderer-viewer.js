@@ -4,20 +4,34 @@
 
 	Swatch.ViewerLookup = React.createClass({
 		displayName: 'SmartViewer.Swatch',
+		getDefaultProps: function () {
+			return {
+				swatchDataId: '1'
+			};
+		},
 		componentWillMount: function () {
 
 			var store = new Swatch.SwatchStore();
-			var listenableActions = store.listenableActions;
-
-			this.signalBinding = listenableActions.swatchDataChanged.add(function () {
+			this.signalBinding = store.listenableActions.swatchDataChanged.add(function smartComponentListener () {
 				this.setState(store.getReactProps());
 			}, this);
-			store.init(swatchData1);
+			// note how I'm using props here.
+			store.init(this.props.swatchDataId);
+
+			window.swatchStore = store; // this is just for show and tell!
 		},
 		componentWillUnmount: function () {
 			this.signalBinding.detach();
 		},
 		render: function () {
+
+			if (this.state.isLoading) {
+				return React.DOM.div({className: 'loading'}, 'Loading...');
+			}
+			if (this.state.loadingError) {
+				return React.DOM.div({className: 'error'}, 'Error: ' + this.state.loadingError);
+			}
+
 			return React.createElement(Swatch.ViewerFullRenderer, this.state);
 		}
 	});
@@ -25,6 +39,7 @@
 	Swatch.ViewerFullRenderer = React.createClass({
 		displayName: 'viewer.Swatch',
 		propTypes: {
+			isLoading: React.PropTypes.bool.isRequired,
 			title: React.PropTypes.string.isRequired,
 			selectedSwatch: React.PropTypes.object.isRequired,
 			swatches: React.PropTypes.array.isRequired,
@@ -68,6 +83,7 @@
 			setSelectedSwatchSignal: React.PropTypes.object.isRequired
 		},
 		render: function () {
+
 
 			var renderedSwatches = this.props.swatches.map(function (swatch) {
 				return React.createElement(Swatch.swatchThumbnailRenderer, {

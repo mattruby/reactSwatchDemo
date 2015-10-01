@@ -7,7 +7,8 @@
 		propTypes: {
 			title: React.PropTypes.string.isRequired,
 			selectedSwatch: React.PropTypes.object.isRequired,
-			swatches: React.PropTypes.array.isRequired
+			swatches: React.PropTypes.array.isRequired,
+			eventBinding: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -33,7 +34,8 @@
 				React.createElement(Swatch.swatchGroupRenderer,
 					{
 						key: 'swatch-group',
-						swatches: this.props.swatches
+						swatches: this.props.swatches,
+						eventBinding: this.props.eventBinding
 					})
 			);
 		}
@@ -42,7 +44,8 @@
 	Swatch.swatchGroupRenderer = React.createClass({
 		displayName: 'swatchGroup.Swatch',
 		propTypes: {
-			swatches: React.PropTypes.array.isRequired
+			swatches: React.PropTypes.array.isRequired,
+			eventBinding: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -52,7 +55,8 @@
 					selected: swatch.selected,
 					materialId: swatch.materialId,
 					name: swatch.name,
-					image: swatch.image
+					image: swatch.image,
+					eventBinding: this.props.eventBinding
 				});
 			}, this);
 
@@ -70,7 +74,8 @@
 			selected: React.PropTypes.bool.isRequired,
 			materialId: React.PropTypes.number.isRequired,
 			name: React.PropTypes.string.isRequired,
-			image: React.PropTypes.string.isRequired
+			image: React.PropTypes.string.isRequired,
+			eventBinding: React.PropTypes.object.isRequired
 		},
 		render: function () {
 
@@ -78,7 +83,8 @@
 
 			return React.DOM.div({
 					className: className,
-					key: this.props.materialId
+					key: this.props.materialId,
+					onClick: this.swatchClickHandler
 				},
 				React.DOM.img({
 					height: 31,
@@ -87,6 +93,10 @@
 					src: this.props.image + Swatch.imgSize.thumb
 				})
 			);
+		},
+		swatchClickHandler: function (event) {
+			event.preventDefault();
+			$(this.props.eventBinding).trigger('swatchSelected.swatch', this.props.materialId);
 		}
 	});
 
