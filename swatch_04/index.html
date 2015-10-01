@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>All data is hooked up to the store</title>
+    <link rel="stylesheet" href="../shared_assets/style.css"/>
+
+</head>
+<body>
+
+<div id="react-swatch"></div>
+
+<script src="../shared_assets/react.js"></script>
+
+
+<script type="text/javascript" src="../shared_assets/swatch-data-1.js"></script>
+<script type="text/javascript" src="../shared_assets/swatch-data-2.js"></script>
+
+<script type="text/javascript" src="../shared_assets/utils.js"></script>
+
+<script type="text/javascript" src="js/swatch-renderer-viewer.js"></script>
+
+<script type="text/javascript">
+
+    React.render(React.createElement(Swatch.ViewerFullRenderer,
+                    {
+                        title: swatchData1.title,
+                        swatches: swatchData1.swatches,
+                        selectedSwatch: Swatch.getSelectedSwatch(swatchData1)
+                    }
+            ),
+            document.getElementById('react-swatch'));
+
+</script>
+
+</body>
+</html>

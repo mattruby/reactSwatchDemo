@@ -1,0 +1,17 @@
+{
+  "title": "Material Details",
+  "swatches": [
+    {
+      "name": "Stainless steel",
+      "orderable": false,
+      "image": "http://s7d4.scene7.com/is/image/roomandboard/sw_stainlesssteel",
+      "materialId": 94772742
+    },
+    {
+      "name": "Natural steel",
+      "orderable": true,
+      "image": "http://s7d4.scene7.com/is/image/roomandboard/sw_naturalsteel",
+      "materialId": 94772741
+    }
+  ]
+}

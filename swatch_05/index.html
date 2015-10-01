@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Added jQuery eventing to store and react components</title>
+    <link rel="stylesheet" href="../shared_assets/style.css"/>
+
+</head>
+<body>
+
+<div id="react-swatch"></div>
+
+<script src="../shared_assets/jquery.js"></script>
+<script src="../shared_assets/react.js"></script>
+
+<script type="text/javascript" src="../shared_assets/swatch-data-1.js"></script>
+<script type="text/javascript" src="../shared_assets/swatch-data-2.js"></script>
+<script type="text/javascript" src="../shared_assets/utils.js"></script>
+
+<script type="text/javascript" src="js/swatch-renderer-viewer.js"></script>
+
+<script type="text/javascript">
+
+    // Bind all custom jQuery swatch events here
+    Swatch.events = {};
+
+    // bind to the swatchSelected custom event
+    $(Swatch.events).on('swatchSelected.swatch', function (event, materialId) {
+        Swatch.setSelectedSwatch(materialId, swatchData1);
+        // After we've updated the selected swatch, fire the data changed event
+        $(Swatch.events).trigger('swatchDataChanged.swatch', swatchData1);
+    });
+
+    // listen for the data change to re-render
+    $(Swatch.events).on('swatchDataChanged.swatch', function (event, data) {
+        React.render(React.createElement(Swatch.ViewerFullRenderer,
+                {
+                    title: data.title,
+                    swatches: data.swatches,
+                    selectedSwatch: Swatch.getSelectedSwatch(data),
+                    eventBinding: Swatch.events
+                }
+        ), document.getElementById('react-swatch'));
+    });
+
+    // initial data change trigger will cause the initial render
+    $(Swatch.events).trigger('swatchDataChanged.swatch', swatchData1);
+
+</script>
+
+</body>
+</html>

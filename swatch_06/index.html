@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Switch from callbacks to signals</title>
+    <link rel="stylesheet" href="../shared_assets/style.css"/>
+
+</head>
+<body>
+
+<div id="react-swatch"></div>
+
+
+<script type="text/javascript" src="../shared_assets/swatch-data-1.js"></script>
+<script type="text/javascript" src="../shared_assets/swatch-data-2.js"></script>
+<script type="text/javascript" src="../shared_assets/utils.js"></script>
+
+
+<script src="../shared_assets/signals.js"></script>
+<script src="../shared_assets/react.js"></script>
+<script type="text/javascript" src="js/swatch-renderer-viewer.js"></script>
+
+<script type="text/javascript">
+
+    // initialize the signals
+    Swatch.events = {
+        swatchSelected: new signals.Signal(),
+        swatchDataChanged: new signals.Signal()
+    };
+
+    // bind to the swatchSelected custom event
+    Swatch.events.swatchSelected.add(function swatchSelectedMain (materialId) {
+        Swatch.setSelectedSwatch(materialId, swatchData1);
+        // After we've updated the selected swatch, fire the data changed event
+        Swatch.events.swatchDataChanged.dispatch(swatchData1);
+    });
+
+    // listen for the data change to re-render
+    Swatch.events.swatchDataChanged.add(function swatchDataChanged (data) {
+        React.render(React.createElement(Swatch.ViewerFullRenderer,
+                {
+                    title: data.title,
+                    swatches: data.swatches,
+                    selectedSwatch: Swatch.getSelectedSwatch(data),
+                    setSelectedSwatchSignal: Swatch.events.swatchSelected
+                }
+        ), document.getElementById('react-swatch'));
+    });
+
+    Swatch.events.swatchDataChanged.dispatch(swatchData1);
+
+</script>
+
+</body>
+</html>

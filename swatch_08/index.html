@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple async example</title>
+    <link rel="stylesheet" href="../shared_assets/style.css"/>
+
+</head>
+<body>
+
+<div id="react-swatch"></div>
+
+<!--jquery is not really needed, I use it for a bit of debugging-->
+<script src="../shared_assets/jquery.js"></script>
+
+<script src="../shared_assets/react.js"></script>
+<script src="../shared_assets/lodash.js"></script>
+<script src="../shared_assets/signals.js"></script>
+<script type="text/javascript" src="../shared_assets/swatch-data-1.js"></script>
+<script type="text/javascript" src="../shared_assets/swatch-data-2.js"></script>
+<script type="text/javascript" src="../shared_assets/utils.js"></script>
+
+<script type="text/javascript" src="js/swatch-renderer-viewer.js"></script>
+<script type="text/javascript" src="js/swatch-store.js"></script>
+
+<script type="text/javascript">
+
+    React.render(
+            React.createElement(
+                    Swatch.ViewerLookup,
+                    null
+            ),
+            document.getElementById('react-swatch')
+    );
+
+   /*
+   React.unmountComponentAtNode(
+            document.getElementById('react-swatch')
+    );
+    */
+
+/*
+    React.render(
+            React.createElement(
+                    Swatch.ViewerLookup,
+                    {swatchDataId: '2'}
+            ),
+            document.getElementById('react-swatch2')
+    );
+*/
+
+</script>
+
+</body>
+</html>
