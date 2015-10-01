@@ -1,7 +1,7 @@
 # Practical React
 Open Source North demo code
 
-## There are 8 examples here from static html to async  data loading.
+## There are 7 examples here from static html to async  data loading.
 
 1. Html and css only
 1. React components with hard coded data values
