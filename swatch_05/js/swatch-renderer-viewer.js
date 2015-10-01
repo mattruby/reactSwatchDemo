@@ -34,7 +34,6 @@
 
 				React.createElement(Swatch.swatchGroupRenderer,
 					{
-						key: 'swatch-group',
 						swatches: this.props.swatches,
 						setSelectedSwatchSignal: this.props.setSelectedSwatchSignal
 					})
@@ -95,8 +94,7 @@
 				})
 			);
 		},
-		swatchClickHandler: function (event) {
-			event.preventDefault();
+		swatchClickHandler: function () {
 			this.props.setSelectedSwatchSignal.dispatch(this.props.materialId)
 		}
 	});

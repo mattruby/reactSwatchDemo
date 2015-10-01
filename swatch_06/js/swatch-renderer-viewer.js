@@ -53,7 +53,6 @@
 
 				React.createElement(Swatch.swatchGroupRenderer,
 					{
-						key: 'swatch-group',
 						swatches: this.props.swatches,
 						setSelectedSwatchSignal: this.props.setSelectedSwatchSignal
 					})

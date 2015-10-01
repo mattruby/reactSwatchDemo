@@ -33,7 +33,6 @@
 
 				React.createElement(Swatch.swatchGroupRenderer,
 					{
-						key: 'swatch-group',
 						swatches: this.props.swatches,
 						eventBinding: this.props.eventBinding
 					})
@@ -94,8 +93,7 @@
 				})
 			);
 		},
-		swatchClickHandler: function (event) {
-			event.preventDefault();
+		swatchClickHandler: function () {
 			$(this.props.eventBinding).trigger('swatchSelected.swatch', this.props.materialId);
 		}
 	});
